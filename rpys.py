@@ -1,4 +1,4 @@
-from flask import Flask, redirect, request, make_response, render_template
+from flask import Flask, redirect, request, session, make_response, render_template
 from flask_bcrypt import Bcrypt
 from secrets import token_urlsafe
 from html import escape
@@ -111,7 +111,9 @@ def win():
 
 @app.route('/logout')
 def logout():
-    request.cookies.clear()
+    res = make_response(render_template("logout.html"))
+    res.delete_cookie("session")
+    return res
 
 
 
