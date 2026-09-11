@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" type="image/x-icon" href="{{url_for('static', filename='favicon.ico')}}">
+    <style>
+        * {
+            font-family: "Helvetica", sans-serif;
+            font-weight: bold;
+        }
+
+        ul {
+            list-style-type: none;
+            margin: 0;
+            padding: 0;
+            overflow: hidden;
+            background-color: rgb(255, 255, 94);
+            margin-bottom: 50px;
+        }
+
+        li {
+            display: inline-block;
+            vertical-align: top;
+        }
+
+        li a {
+            display: table-cell;
+            color: black;
+            vertical-align: middle;
+            padding-left: 10px;
+            padding-right: 10px;
+            height: 120px;
+            font-weight: bold;
+            font-size: x-large;
+        }
+
+        .nav > li {
+            height: 120px;
+        }
+        
+        img {
+            height: 120px;
+        }
+
+        li a:hover {
+            background-color: rgb(181, 181, 0);
+        }
+        
+        .highrank {
+            font-weight: bold;
+            font-size: 175%;
+        }
+
+        .you {
+            text-decoration: underline;
+        }
+
+        body {
+            display: grid;
+            padding: 10px;
+        }
+
+        ol {
+            margin: auto;
+            display: flex;
+            justify-content: center;
+            flex-direction: column;
+        }
+    </style>
+    <title>RPyS - Leaderboard</title>
+</head>
+<body>
+    <ul class="nav">
+        <li><img src="{{url_for('static', filename='rps.png')}}"></img></li>
+        <li><a style="text-decoration: none" href="./game">Game</a></li>
+        <li><a style="text-decoration: none" href="./wins">Leaderboard</a></li>
+        <li><a style="text-decoration: none" href="./not-implemented">Log Out</a></li>
+    </ul>
+    <ol>
+        {% for i in range(0, length) %}
+        <!--this pains me-->
+        <li {% if i < 3 and session == wins[i]["session"] %} class="highrank you" {% elif session == wins[i]["session"] %} class="you" {% elif i < 3 %} class="highrank" {% endif %}  >
+            {{i + 1}}. {{wins[i]["name"]}}: {{wins[i]["wins"]}} wins
+        </li>
+        {% endfor %}
+    </ol>
+</body>
+</html>
